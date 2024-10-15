@@ -1,0 +1,27 @@
+options:
+	prefix: &9&lYOURSERVER &8|&7
+
+# Do not edit anything below this line unless you know what you're doing
+
+command clearmap:
+	permission: mapclear
+	trigger:
+		broadcast ""
+		broadcast "{@prefix} &cClearing Map!"
+		broadcast ""
+		clearmap()
+
+every 30 minutes:
+	clearmap()
+
+function clearmap():
+	loop {mapclear::*}:
+		set block at loop-value to air
+	clear {mapclear::*}
+
+on block place:
+	if gamemode of player is survival:
+		add event-location to {mapclear::*}
+  
+on block break:
+	remove event-location from {mapclear::*}
